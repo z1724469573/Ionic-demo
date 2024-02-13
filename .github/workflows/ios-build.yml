@@ -41,3 +41,12 @@ jobs:
         with:
           name: iOS App
           path: ios/App/App.xcarchive
+
+      - name: Publish iOS App
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: iOS-App
+          release_name: iOS App
+          files: ios/App/App.xcarchive
