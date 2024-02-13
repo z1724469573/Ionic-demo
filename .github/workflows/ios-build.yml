@@ -42,14 +42,6 @@ jobs:
           name: iOS App
           path: ios/App/App.xcarchive
 
-      - name: Create Git tag
-        id: create_tag
-        run: |
-          git config --local user.email "actions@github.com"
-          git config --local user.name "GitHub Actions"
-          git tag -a v1.0.0 -m "Version 1.0.0"
-          git push origin v1.0.0
-
       - name: Publish iOS App
         uses: softprops/action-gh-release@v1
         with:
