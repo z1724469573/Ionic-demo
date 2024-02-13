@@ -36,14 +36,21 @@ jobs:
           cd ios
           ionic cap build ios --prod
 
-      - name: Convert .xcarchive to .ipa
+      - name: Create artifacts directory
         run: |
-          xcodebuild -exportArchive -archivePath ios/App/App.xcarchive \
-          -exportPath ios/App/App.ipa \
-          -exportOptionsPlist ExportOptions.plist
+          mkdir -p artifacts
 
-      - name: Upload artifact
+      - name: Move iOS app to artifacts directory
+        run: |
+          mv ios/App/App.xcarchive artifacts/
+
+      - name: Compress artifacts
+        run: |
+          cd artifacts
+          zip -r ios-app.zip App.xcarchive
+
+      - name: Upload artifacts
         uses: actions/upload-artifact@v2
         with:
           name: iOS App
-          path: ios/App/App.ipa
+          path: artifacts/ios-app.zip
