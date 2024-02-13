@@ -28,8 +28,8 @@
 </template>
 
 <script setup lang="ts">
-import { usePhotoGallery, UserPhoto } from '@/composables/usePhotoGallery'
-import { camera, trash, close } from 'ionicons/icons'
+import { usePhotoGallery } from '@/composables/usePhotoGallery'
+import { camera } from 'ionicons/icons'
 import {
   IonPage,
   IonHeader,
