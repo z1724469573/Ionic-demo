@@ -36,14 +36,14 @@ jobs:
           cd ios
           ionic cap build ios --prod
 
+      - name: Convert .xcarchive to .ipa
+        run: |
+          xcodebuild -exportArchive -archivePath ios/App/App.xcarchive \
+          -exportPath ios/App/App.ipa \
+          -exportOptionsPlist ExportOptions.plist
+
       - name: Upload artifact
         uses: actions/upload-artifact@v2
         with:
           name: iOS App
-          path: ios/App/App.xcarchive
-
-      - name: Publish iOS App
-        uses: softprops/action-gh-release@v1
-        with:
-          files: ios/App/App.xcarchive
-          tag_name: v1.0.0
+          path: ios/App/App.ipa
