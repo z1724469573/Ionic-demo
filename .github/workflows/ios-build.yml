@@ -1,0 +1,43 @@
+name: iOS Build
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: macOS-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Install Ionic CLI and native-run
+        run: |
+          npm install -g @ionic/cli@latest native-run
+
+      - name: Build iOS app
+        run: |
+          cd ios
+          npm install
+          ionic cap open ios
+
+      - name: Archive app
+        run: |
+          cd ios
+          ionic cap build ios --prod
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: iOS App
+          path: ios/App/App.xcarchive
